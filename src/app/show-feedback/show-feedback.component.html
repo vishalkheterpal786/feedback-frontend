@@ -1,0 +1,37 @@
+<button routerLink="/add-feedback">Add Feedback</button>
+<div class="filter-sort">
+  <label>Filter by Contact Type:</label>
+  <select [(ngModel)]="filterType" (change)="applyFilterAndSort()">
+    <option value="">All</option>
+    <option value="general">General</option>
+    <option value="marketing">Marketing</option>
+    <option value="support">Support</option>
+  </select>
+
+  <button (click)="toggleSort()">
+    Sort by Date: {{ sortAscending ? "Ascending" : "Descending" }}
+  </button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Date of Submission</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Contact Type</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let f of filteredList">
+      <td>{{ f.id }}</td>
+      <td>{{ f.createdAt | date : "short" }}</td>
+      <td>{{ f.name || "-" }}</td>
+      <td>{{ f.email || "-" }}</td>
+      <td>{{ f.contactType }}</td>
+      <td>{{ f.message }}</td>
+    </tr>
+  </tbody>
+</table>

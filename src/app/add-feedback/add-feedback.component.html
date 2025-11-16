@@ -1,0 +1,77 @@
+<button routerLink="/show-feedback">Show Feedback</button>
+
+<div class="feedback-container">
+  <form [formGroup]="feedbackForm" (ngSubmit)="submitForm()">
+    <!-- Name -->
+    <div>
+      <label>Name (optional)</label>
+      <input type="text" formControlName="name" maxlength="100" />
+      <div
+        class="error"
+        *ngIf="submitted && feedbackForm.controls['name'].errors?.['maxlength']"
+      >
+        Maximum 100 characters allowed.
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label>Email (optional)</label>
+      <input type="email" formControlName="email" maxlength="100" />
+      <div
+        class="error"
+        *ngIf="submitted && feedbackForm.controls['email'].errors?.['email']"
+      >
+        Invalid email format.
+      </div>
+      <div
+        class="error"
+        *ngIf="submitted && feedbackForm.controls['email'].errors?.['maxlength']"
+      >
+        Maximum 100 characters allowed.
+      </div>
+    </div>
+
+    <!-- Contact Type -->
+    <div>
+      <label>Contact Type *</label>
+      <select formControlName="contactType">
+        <option value="" disabled>Select type...</option>
+        <option value="general">General</option>
+        <option value="marketing">Marketing</option>
+        <option value="support">Support</option>
+      </select>
+      <div
+        class="error"
+        *ngIf="submitted && feedbackForm.controls['contactType'].errors?.['required']"
+      >
+        Contact type is required.
+      </div>
+    </div>
+
+    <!-- Message -->
+    <div>
+      <label>Message *</label>
+      <textarea formControlName="message" maxlength="1000" rows="5"></textarea>
+      <div
+        class="error"
+        *ngIf="submitted && feedbackForm.controls['message'].errors?.['required']"
+      >
+        Message is required.
+      </div>
+      <div
+        class="error"
+        *ngIf="submitted && feedbackForm.controls['message'].errors?.['maxlength']"
+      >
+        Maximum 1000 characters allowed.
+      </div>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Success Message -->
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+</div>
